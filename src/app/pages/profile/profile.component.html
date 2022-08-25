@@ -1,0 +1,111 @@
+<p-toast></p-toast>
+
+<app-header [userInput]="userDetails"></app-header>
+<section class="vh-100" style="background-color: #f4f5f7;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div
+              class="d-flex flex-column align-items-center justify-content-center col-md-4 gradient-custom text-white"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+              <div class="profile-pic-wrapper">
+                <div class="pic-holder">
+                  <img id="profilePic" class="pic" src="{{noAvatar}}">
+                </div>
+              </div>
+              <h4>{{userDetails?.nickname}}</h4>
+            </div>
+            <div class="col-md-8">
+              <div *ngIf="!editUserForm; else showEditUserForm" class="card">
+                <div class="card-body p-4">
+                  <h6>Thông tin</h6>
+                  <hr class="mt-0 mb-4">
+                  <a href="#" role="button" (click)="editUser($event)">
+                    <i class="fa fa-edit"></i> Chỉnh sửa hồ sơ
+                  </a>
+                  <div class="row pt-4">
+                    <div class="col-6 mb-3">
+                      <h6>Nickname</h6>
+                      <p class="text-muted">{{userDetails?.nickname}}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Email</h6>
+                      <p class="text-muted">{{userDetails?.email}}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Phone</h6>
+                      <p class="text-muted">{{userDetails?.phone}}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Country</h6>
+                      <p class="text-muted">{{userDetails?.country}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #showEditUserForm>
+  <!-- User profile details card-->
+  <div class="card mb-4 border-0">
+    <div class="card-body">
+      <h6>Chỉnh sửa thông tin</h6>
+      <hr class="mt-0 mb-4">
+      <form>
+        <!-- Form Group (ho ten)-->
+        <div class="mb-3">
+          <label class="small mb-1" for="inputName">Nickname</label>
+          <input class="form-control" id="inputName" type="text" name="nickname" placeholder=""
+            [(ngModel)]="userDetails.nickname" disabled>
+        </div>
+        <!-- Form Group (email address)-->
+        <div class="mb-3">
+          <label class="small mb-1" for="inputEmail">Email</label>
+          <input class="form-control" id="inputEmail" type="email" name="email" placeholder=""
+            [(ngModel)]="userDetails.email" disabled>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="small mb-1" for="inputPassword">Password</label>
+            <input class="form-control" id="inputPassword" type="password" name="password" placeholder=""
+              [(ngModel)]="userDetails.password">
+          </div>
+          <div class="col-md-6">
+            <label class="small mb-1" for="inputConfirmPassword">Confirm Password</label>
+            <input class="form-control" id="inputConfirmPassword" type="password" name="confirm_password" placeholder=""
+              [(ngModel)]="userDetails.confirm_password">
+          </div>
+        </div>
+        <!-- Form Row-->
+        <div class="mb-3">
+          <!-- Form Group (phone number)-->
+          <label class="small mb-1" for="inputPhone">Phone</label>
+          <input class="form-control" id="inputPhone" type="tel" name="phone" placeholder=""
+            [(ngModel)]="userDetails.phone">
+        </div>
+        <div class="mb-3">
+          <label class="small mb-1" for="inputCountry">Country</label>
+          <p-dropdown class="form-control inputStyle" [(ngModel)]="userDetails.country" inputId="country"
+            [options]="countries" placeholder="Choose country..." name="country" #country="ngModel" [required]="true">
+            <ng-template let-option pTemplate="item">
+              <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <!-- Save changes button-->
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-outline-danger me-2" type="button" (click)="clickEditUser()">Update</button>
+          <button class="btn btn-outline-danger" type="button" (click)="cancelEditForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

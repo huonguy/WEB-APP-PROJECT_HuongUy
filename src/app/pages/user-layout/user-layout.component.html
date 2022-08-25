@@ -1,0 +1,32 @@
+<ng-container *ngIf="requestURL.includes('profile'); else otherContent">
+  <router-outlet></router-outlet>
+</ng-container>
+
+<div class="uLayout">
+  <ng-template #otherContent>
+    <div #container class="container" id="container"
+      [ngClass]="{'right-panel-active': requestURL.includes('register')}">
+      <div class="form-container sign-in-container">
+        <app-login></app-login>
+      </div>
+      <div class="form-container sign-up-container">
+        <app-register></app-register>
+      </div>
+
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome back!</h1>
+            <p>To stay connected with us, please log in with your personal information.</p>
+            <button class="buttonStyle ghost" id="signIn" (click)="signIn()">Login</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Hi there !</h1>
+            <p>Leave your personal information and start your journey with us.</p>
+            <button class="buttonStyle ghost" id="signUp" (click)="signUp()">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
